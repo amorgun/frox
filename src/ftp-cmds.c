@@ -89,6 +89,8 @@ void ftpcmds_init()
 		{"XPWD", send_command},
 		{"XCUP", send_command},
 		{"FEAT", send_command},
+		{"OPTS", send_command},
+		{"MLSD", xfer_command},
 #if 0
 		{"APSV", send_command},	/* As per RFC 1579      */
 #endif
@@ -395,7 +397,9 @@ void xfer_command(sstr * cmd, sstr * arg)
 	}
 
 	if(!sstr_casecmp2(cmd, "RETR") ||
-	   !sstr_casecmp2(cmd, "LIST") || !sstr_casecmp2(cmd, "NLST"))
+	   !sstr_casecmp2(cmd, "LIST") ||
+	   !sstr_casecmp2(cmd, "NLST") ||
+	   !sstr_casecmp2(cmd, "MLSD"))
 		info->state = DOWNLOAD;
 	else
 		info->state = UPLOAD;
